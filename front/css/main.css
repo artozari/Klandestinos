@@ -1,0 +1,90 @@
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  min-height: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+.grid-container > * {
+  padding: 10px;
+  border: 1px solid black;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.header {
+  grid-area: header;
+  background-color: aquamarine;
+}
+.navBar {
+  grid-area: navbar;
+  background-color: cadetblue;
+}
+.main {
+  grid-area: main;
+  background-color: yellowgreen;
+}
+.sideBar {
+  grid-area: sideBar;
+  background-color: darkgoldenrod;
+}
+.footer {
+  grid-area: footer;
+  background-color: black;
+}
+
+.grid-container {
+  display: grid;
+  gap: 10px;
+  grid-template:
+    "header" 70px
+    "navbar" 50px
+    "main" auto
+    "sideBar" 50px
+    "footer" 100px;
+}
+
+@media (min-width: 600px) {
+  .grid-container {
+    display: grid;
+    gap: 10px;
+    grid-template:
+      "header header" 70px
+      "navbar sideBar" 50px
+      "main sideBar" auto
+      "footer footer" 100px /
+      auto 250px;
+  }
+}
+
+/* Hasta aqui la configuracion de pantalla */
+
+.formLoguin {
+  border: 1px solid black;
+  display: grid;
+  justify-content: space-around;
+  grid-template:
+    "txtUser" 25px
+    "txtPassword" 25px
+    "inputBtnLoguin" 25px/
+    200px;
+}
+
+.txtUser {
+  grid-area: txtUser;
+}
+
+.txtPassword {
+  grid-area: txtPassword;
+}
+
+.inputBtnLoguin {
+  grid-area: inputBtnLoguin;
+}

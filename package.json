@@ -1,0 +1,25 @@
+{
+  "name": "klandestinos",
+  "version": "1.0.0",
+  "description": "Red social de eventos que puedes compartir con tus amigos!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artozari/Klandestinos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/artozari/Klandestinos/issues"
+  },
+  "homepage": "https://github.com/artozari/Klandestinos#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.2",
+    "express-sessions": "^1.0.6",
+    "mongodb": "^2.2.34"
+  }
+}
