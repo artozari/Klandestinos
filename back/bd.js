@@ -28,4 +28,60 @@ function obtenerUsuario(nick, pass, err, cbDatos) {
   });
 }
 
-module.exports = { obtenerUsuarios, obtenerUsuario };
+function obtenerPerfil(nombre, err, cbDatos) {
+  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+    if (err) {
+      console.log("hubo un error al conectar");
+      return;
+    }
+    const klandb = cliente.db("klandestinos");
+    const colecciondb = klandb.collection("perfil");
+    colecciondb.find({ nombre: nombre }).toArray(function (err, datos) {
+      cbDatos(datos);
+    });
+  });
+}
+
+function obtenerEvento(id, err, cbDatos) {
+  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+    if (err) {
+      console.log("hubo un error al conectar");
+      return;
+    }
+    const klandb = cliente.db("klandestinos");
+    const colecciondb = klandb.collection("evento");
+    colecciondb.find({ id: id }).toArray(function (err, datos) {
+      cbDatos(datos);
+    });
+  });
+}
+
+function obtenerEventos(err, cbDatos) {
+  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+    if (err) {
+      console.log("hubo un error al conectar");
+      return;
+    }
+    const klandb = cliente.db("klandestinos");
+    const colecciondb = klandb.collection("evento");
+    colecciondb.find().toArray(function (err, datos) {
+      cbDatos(datos);
+    });
+  });
+}
+
+function obtenerEventosPorUbicacion(direccion, err, cbDatos) {
+  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+    if (err) {
+      console.log("hubo un error al conectar");
+      return;
+    }
+    const klandb = cliente.db("klandestinos");
+    const colecciondb = klandb.collection("evento");
+    colecciondb.find({ ubicacion: ubicacion }).toArray(function (err, datos) {
+      cbDatos(datos);
+    });
+  });
+}
+
+module.exports = { obtenerUsuarios, obtenerUsuario, obtenerPerfil, obtenerEvento };

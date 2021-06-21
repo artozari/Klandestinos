@@ -4,6 +4,15 @@ const port = 3000;
 const path = require("path");
 const expHbs = require("express-handlebars");
 const bd = require(`./bd`);
+const session = require("express-session");
+
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use(express.static(path.join(__dirname, "../front")));
 app.use(express.urlencoded({ extended: true }));
@@ -21,27 +30,49 @@ app.set("views", path.join(__dirname, "views"));
 /* Aqui estan los routers */
 
 app.get("/", function (req, res) {
-  res.render("login", {});
+  res.render("mainLogin", {});
 });
 
 app.post("/login", function (req, res) {
   const user = req.body.txtUser;
   const pass = req.body.txtPassword;
-  let us = bd.obtenerUsuario(
+  let TodosLosDatos = { dato: [{ mensaje: "Tus eventos:" }] };
+  bd.obtenerUsuario(
     user,
     pass,
     (err) => {
-      res.render(`ERROR: Se presento un error al consultar el usuario: ${error}`);
+      res.render("mainLogin", { error: `ERROR: Se presento un error ${err}` });
       console.log("Error");
     },
     (cbdatos) => {
-      res.render("mainLogin", { cbdatos });
-      console.log(cbdatos.nick);
+      TodosLosDatos.usuario = cbdatos;
+      bd.obtenerEvento(
+        1,
+        (error) => {
+          res.render(`ERROR: Se presento un error al consultar el evento: ${error}`);
+          console.log("Error");
+        },
+        (cbdatosEvento) => {
+          TodosLosDatos.evento = cbdatosEvento;
+          console.log(TodosLosDatos);
+          res.render("mainLogin", { TodosLosDatos });
+        }
+      );
     }
   );
-  if (us) {
-    console.log(us);
-  }
+});
+
+app.get("/evento", function (req, res) {
+  const evento = bd.obtenerEvento(
+    1,
+    (error) => {
+      res.render(`ERROR: Se presento un error al consultar el evento: ${error}`);
+      console.log("Error");
+    },
+    (cbdatos) => {
+      res.render("evento", { cbdatos });
+    }
+  );
 });
 
 /*  */

@@ -1,5 +1,14 @@
-<div>
-  <img src="" alt="" />
-  <p>descripcion de evento</p>
-  <input type="button" value="Asistit" />
+<div class="evento">
+  {{#each cbdatos}}
+    <img src="{{this.urlImage}}" alt="" />
+    <p>{{this.descripcion}}</p>
+    <input type="button" value="Asistir" />
+    <p>Fecha: {{this.fechaEvento}} hasta el: {{this.fechaFin}}</p>
+    <p>Lugar: {{this.ubicacion}}</p>
+    <h2>Organiza: Un vaguito</h2>
+    <h2>Asistentes: Varios vaguitos
+    </h2>
+    <p>Comentar:</p>
+    <h2>Comentarios</h2>
+  {{/each}}
 </div>
