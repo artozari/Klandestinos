@@ -1,0 +1,23 @@
+{{#if eventos}}
+  <div class="tusEventos">
+    {{#each eventos}}
+      <h1>{{this.nombre}}</h1>
+      <img src="{{this.urlImage}}" alt="" />
+      <h2 class="organizador">Organizador: {{this.usuarioCreador}}</h2>
+      <h3 class="desdeHasta">Desde: {{this.fechaEvento}} - Hasta:{{this.fechaFin}}</h3>
+      <p class="ubicacionEvento">{{this.ubicacion}}</p>
+      <p class="descripcionEvento">{{this.descripcion}}</p>
+      <input type="button" value="Asistir" id="btnAsistirEvento" class="btnAsistirEvento" />
+      <input type="button" value="Compartir" id="btnCompartirEvento" class="btnCompartirEvento" />
+      <input type="text" id="inputComentario" class="inputComentario" />
+      <input type="button" value="Comentar" id="btnComentar" class="btnComentar" />
+      <div class="mensajesDeEvento">
+        <h4>Mensajes</h4><br />
+        <h5>
+          {{this.asistentes.usuario.nick}}:
+          {{this.asistentes.usuario.mensajes.msj}}
+        </h5>
+      </div>
+    {{/each}}
+  </div>
+{{/if}}

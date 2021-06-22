@@ -7,6 +7,27 @@
     <title>Klan-Destinos</title>
   </head>
   <body class="grid-container">
-    {{{body}}}
+    <header class="header">
+      <h1>Klan-Destinos</h1>
+      {{#if fotoPerfil}}
+        <img src="{{fotoPerfil}}" alt="" />
+      {{/if}}
+    </header>
+    <nav class="navBar">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li> <a href="/registrarse"> Registrarse</a></li>
+        <li> <a href="/eventosProximos"> Explorar</a></li>
+        {{#if usuario}}
+          <li> <a href="/tusEventos"> Tus Eventos</a></li>
+          <li> <a href="/cerrarSesion"> Cerrar Sesion</a></li>
+        {{/if}}
+      </ul>
+    </nav>
+    <main class="main">
+      {{{body}}}
+    </main>
+    <div class="sideBar"><a href="evento">Ver eventos cerca</a></div>
+    <footer class="footer">Desarrollado por: ASMC.corp</footer>
   </body>
 </html>

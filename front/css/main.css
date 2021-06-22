@@ -106,15 +106,40 @@ html {
   list-style: none;
   display: grid;
   grid-template:
-    "home registrarse" auto/
-    auto auto;
+    "home registrarse cerrar tusEventos" auto/
+    auto;
 }
 
 .header {
   display: grid;
+  gap: 20px;
   align-content: center;
-  justify-content: left;
+  justify-content: space-between;
   grid-template:
-    "Baner" auto/
-    auto;
+    "Baner img" auto/
+    auto 35px;
+}
+
+.header img {
+  border-radius: 50%;
+  width: 35px;
+}
+
+.tusEventos {
+  display: grid;
+  grid-template:
+    "h1 h1 mensajesDeEvento" auto
+    "img img mensajesDeEvento" auto
+    "h2 h2 mensajesDeEvento" auto
+    "h3 h3 mensajesDeEvento" auto
+    "p p mensajesDeEvento" auto
+    "p p mensajesDeEvento" auto
+    "btnAsistirEvento btnCompartirEvento mensajesDeEvento" auto
+    "inputComentario inputComentario mensajesDeEvento" auto
+    "btnComentar btnComentar mensajesDeEvento" auto/
+    auto auto auto;
+}
+
+.tusEventos img {
+  width: 300px;
 }
