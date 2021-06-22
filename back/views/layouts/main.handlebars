@@ -16,7 +16,9 @@
     <nav class="navBar">
       <ul>
         <li><a href="/">Home</a></li>
-        <li> <a href="/registrarse"> Registrarse</a></li>
+        {{#unless usuario}}
+          <li> <a href="/registro"> Registrarse</a></li>
+        {{/unless}}
         <li> <a href="/eventosProximos"> Explorar</a></li>
         {{#if usuario}}
           <li> <a href="/tusEventos"> Tus Eventos</a></li>

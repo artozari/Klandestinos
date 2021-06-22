@@ -90,7 +90,7 @@ app.get("/tusEventos", function (req, res) {
       (cbdatosEventos) => {
         let eventos = cbdatosEventos;
         console.log(eventos);
-        res.render("tusEventos", { eventos, usuario: req.session.nick });
+        res.render("tusEventos", { eventos, usuario: req.session.nick, fotoPerfil: req.session.foto });
       }
     );
   }
@@ -102,17 +102,35 @@ app.get("/eventosProximos", function (req, res) {
   } else {
     console.log("Usuario Logueado: " + req.session.nick);
     bd.obtenerEventosSiguientes(
-      req.session.nick,
       (error) => {
         res.render(`ERROR: Se presento un error al consultar el evento: ${error}`);
         console.log("Error");
       },
       (cbdatosEventos) => {
         let eventos = cbdatosEventos;
-        console.log(eventos);
-        res.render("tusEventos", { eventos, usuario: req.session.nick });
+        let fotoPerfil = req.session.foto;
+        res.render("tusEventos", { eventos, usuario: req.session.nick, fotoPerfil });
       }
     );
+  }
+});
+
+app.get("/registro", function (req, res) {
+  if (!req.session.nick) {
+    res.render("registro");
+  } else {
+    res.redirect("/");
+  }
+});
+
+app.post("/registrarse", function (req, res) {
+  const usuario = req.body.txtUser;
+  const email = req.body.txtEmail;
+  const pass = req.body.txtPassword;
+  const rePass = req.body.txtRePassword;
+  const btnLogin = req.body.btnRegistrarse;
+  let registro = funcs.validarRegistro(usuario, email, pass, rePass);
+  if (registro) {
   }
 });
 

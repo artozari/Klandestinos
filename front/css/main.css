@@ -106,7 +106,7 @@ html {
   list-style: none;
   display: grid;
   grid-template:
-    "home registrarse cerrar tusEventos" auto/
+    "home registrarse explorar cerrar tusEventos" auto/
     auto;
 }
 

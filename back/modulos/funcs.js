@@ -13,4 +13,11 @@ function iniciarSesion(user, pass) {
     }
   );
 }
-module.exports = { iniciarSesion };
+
+function validarRegistro(usuario, email, pass, rePass) {
+  if (pass == rePass) {
+    return true;
+  }
+}
+
+module.exports = { iniciarSesion, validarRegistro };

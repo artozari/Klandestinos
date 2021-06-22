@@ -56,7 +56,7 @@ function obtenerEvento(id, err, cbDatos) {
   });
 }
 
-function obtenerEventos(err, cbDatos) {
+function obtenerEventosSiguientes(err, cbDatos) {
   const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
@@ -64,7 +64,11 @@ function obtenerEventos(err, cbDatos) {
     }
     const klandb = cliente.db("klandestinos");
     const colecciondb = klandb.collection("evento");
-    colecciondb.find(function (err, datos) {
+    const tiempoTranscurrido = Date.now();
+    const hoy = new Date(tiempoTranscurrido);
+    const mes = hoy.getMonth() + 1 < 10 ? `0${hoy.getMonth() + 1}` : `${hoy.getMonth() + 1}`;
+    let ya = `${hoy.getDate()}/${mes}/${hoy.getFullYear()}`; // "22/06/2020"
+    colecciondb.find(/* { fechaEvento: ya } */).toArray(function (err, datos) {
       cbDatos(datos);
     });
   });
@@ -98,4 +102,53 @@ function obtenerEventosPorUsuario(usuarioCreador, err, cbDatos) {
   });
 }
 
-module.exports = { obtenerUsuarios, obtenerUsuario, obtenerPerfil, obtenerEvento, obtenerEventosPorUsuario };
+function registrarUsuario(newUsuario, err, cbOk) {
+  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+    if (err) {
+      console.log("hubo un error al conectar");
+      return;
+    }
+    const klandb = cliente.db("klandestinos");
+    const colecciondb = klandb.collection("usuario");
+    colecciondb.insertOne(newUsuario, (err, datos) => {
+      if (err) {
+        cbError(err);
+        return;
+      }
+      conn.close();
+      cbOk();
+    });
+  });
+}
+
+module.exports = {
+  obtenerUsuarios,
+  obtenerUsuario,
+  obtenerPerfil,
+  obtenerEvento,
+  obtenerEventosPorUsuario,
+  obtenerEventosSiguientes,
+  registrarUsuario,
+};
+
+// const insertAlbum = (newAlbum, cbError, cbOk) => {
+//   mongodb.MongoClient.connect(connURL, connOptions, (err, conn) => {
+//     if (err) {
+//       cbError(err);
+//       return;
+//     }
+
+//     const albumsCollection = conn.db(dbName).collection(albumsCollName);
+
+//     albumsCollection.insertOne(newAlbum, (err, result) => {
+//       if (err) {
+//         cbError(err);
+//         return;
+//       }
+
+//       conn.close();
+
+//       cbOk();
+//     });
+//   });
+// };
