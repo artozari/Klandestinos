@@ -128,9 +128,32 @@ app.post("/registrarse", function (req, res) {
   const email = req.body.txtEmail;
   const pass = req.body.txtPassword;
   const rePass = req.body.txtRePassword;
-  const btnLogin = req.body.btnRegistrarse;
-  let registro = funcs.validarRegistro(usuario, email, pass, rePass);
-  if (registro) {
+  // const btnLogin = req.body.btnRegistrarse;
+  const newUsuario = funcs.validarRegistro(usuario, email, pass, rePass);
+  console.log(newUsuario);
+  if (newUsuario) {
+    bd.registrarUsuario(
+      newUsuario,
+      (err) => {
+        res.render("error", {
+          error: err,
+        });
+      },
+      () => {
+        console.log(`Usuario ${usuario} registrado`);
+        res.render("registro", { mensaje: `Se registro con exito el Usuario: ${usuario}` });
+      }
+    );
+  } else {
+    res.render("registro", { mensaje: `No se pudo registrar en usuario: ${usuario}` });
+  }
+});
+
+app.get("/perfil", function (req, res) {
+  if (!req.session.nick) {
+    res.redirect("/");
+  } else {
+    res.render("perfil", { datos: req.session, usuario: req.session.nick, fotoPerfil: req.session.foto });
   }
 });
 

@@ -1,6 +1,7 @@
 {{#if eventos}}
-  <div class="tusEventos">
-    {{#each eventos}}
+  {{#each eventos}}
+    <div class="tusEventos">
+
       <h1>{{this.nombre}}</h1>
       <img src="{{this.urlImage}}" alt="" />
       <h2 class="organizador">Organizador: {{this.usuarioCreador}}</h2>
@@ -18,6 +19,7 @@
           {{this.asistentes.usuario.mensajes.msj}}
         </h5>
       </div>
-    {{/each}}
-  </div>
+
+    </div>
+  {{/each}}
 {{/if}}

@@ -74,7 +74,7 @@ function obtenerEventosSiguientes(err, cbDatos) {
   });
 }
 
-function obtenerEventosPorUbicacion(direccion, err, cbDatos) {
+function obtenerEventosPorUbicacion(ubicacion, err, cbDatos) {
   const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
@@ -115,7 +115,7 @@ function registrarUsuario(newUsuario, err, cbOk) {
         cbError(err);
         return;
       }
-      conn.close();
+      cliente.close();
       cbOk();
     });
   });
@@ -130,25 +130,3 @@ module.exports = {
   obtenerEventosSiguientes,
   registrarUsuario,
 };
-
-// const insertAlbum = (newAlbum, cbError, cbOk) => {
-//   mongodb.MongoClient.connect(connURL, connOptions, (err, conn) => {
-//     if (err) {
-//       cbError(err);
-//       return;
-//     }
-
-//     const albumsCollection = conn.db(dbName).collection(albumsCollName);
-
-//     albumsCollection.insertOne(newAlbum, (err, result) => {
-//       if (err) {
-//         cbError(err);
-//         return;
-//       }
-
-//       conn.close();
-
-//       cbOk();
-//     });
-//   });
-// };

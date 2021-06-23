@@ -16,7 +16,7 @@ html {
   padding: 10px;
   border: 1px solid black;
   text-align: center;
-  border-radius: 0px;
+  border-radius: 10px;
 }
 
 .header {
@@ -40,12 +40,12 @@ html {
   height: 200px;
   color: white;
   background-color: black;
-  border-radius: 0%;
+  border-radius: 10px;
 }
 
 .grid-container {
   display: grid;
-  /* gap: 10px; */
+  gap: 10px;
   grid-template:
     "header" 70px
     "navbar" 50px
@@ -57,7 +57,7 @@ html {
 @media (min-width: 600px) {
   .grid-container {
     display: grid;
-    /* gap: 10px; */
+    gap: 10px;
     grid-template:
       "header header" 70px
       "navbar sideBar" 50px
@@ -126,8 +126,9 @@ html {
 }
 
 .tusEventos {
-  display: grid;
-  grid-template:
+  border: 2px solid black;
+  border-radius: 30px;
+  /* grid-template:
     "h1 h1 mensajesDeEvento" auto
     "img img mensajesDeEvento" auto
     "h2 h2 mensajesDeEvento" auto
@@ -137,7 +138,7 @@ html {
     "btnAsistirEvento btnCompartirEvento mensajesDeEvento" auto
     "inputComentario inputComentario mensajesDeEvento" auto
     "btnComentar btnComentar mensajesDeEvento" auto/
-    auto auto auto;
+    auto auto auto; */
 }
 
 .tusEventos img {

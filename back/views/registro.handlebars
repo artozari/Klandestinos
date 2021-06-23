@@ -3,5 +3,8 @@
   <div class="txtEmail"><input type="email" placeholder="Correo Electronico" name="txtEmail" id="txtEmail" /></div>
   <div class="txtPassword"><input type="password" placeholder="Contraseña" name="txtPassword" id="txtPassword" /></div>
   <div class="txtRePassword"><input type="password" placeholder="Confirmar Contraseña" name="txtRePassword" id="txtRePassword" /></div>
+  {{#if mensaje}}
+    <p>{{mensaje}}</p>
+  {{/if}}
   <div class="inputBtnRegistrarse"><button type="submit" name="btnRegistrarse" id="btnRegistrarse">Registrarse</button></div>
 </form>
