@@ -16,11 +16,11 @@
     <nav class="navBar">
       <ul>
         <li><a href="/">Home</a></li>
-        {{#unless usuario}}
+        {{#unless datos}}
           <li> <a href="/registro"> Registrarse</a></li>
         {{/unless}}
         <li> <a href="/eventosProximos"> Explorar</a></li>
-        {{#if usuario}}
+        {{#if datos}}
           <li> <a href="/tusEventos"> Tus Eventos</a></li>
           <li> <a href="/cerrarSesion"> Cerrar Sesion</a></li>
         {{/if}}

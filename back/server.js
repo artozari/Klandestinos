@@ -157,6 +157,15 @@ app.get("/perfil", function (req, res) {
   }
 });
 
+app.get("/registroEvento", function (req, res) {
+  if (!req.session.nick) {
+    res.redirect("/");
+  } else {
+    console.log(req.session);
+    res.render("registroEvento", { datos: req.session, fotoPerfil: req.session.foto });
+  }
+});
+
 /* aqui el listen */
 
 app.listen(port, function () {
