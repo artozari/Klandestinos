@@ -1,9 +1,7 @@
 <div class="newEvento">
   <form action="/crearEvento" method="post">
     <input type="text" name="txrEvento" id="txtEvento" class="txtEvento" placeholder="Nombre del evento a crear" />
-    "nombre": "PoolParty",
     <input type="datetime-local" name="txtFechaEvento" id="txtFechaEvento" class="txtFechaEvento" placeholder="Fecha del evento" />
-    "fechaEvento": "31/12/2021",
     <input
       type="datetime-local"
       name="txtFechaFinEvento"
@@ -11,10 +9,7 @@
       class="txtFechaFinEvento"
       placeholder="Fecha fin del eveno"
     />
-    "fechaFin": "01/01/2022",
-    <input type="datetime-local" name="otraFecha" id="otraFecha" class="otraFecha" placeholder="Otra fecha pa mostrar" />
     <input type="text" name="txtUbicaion" id="txtUbicacion" class="txtUbicacion" placeholder="Lugar del evento" />
-    "ubicacion": "La casona",
     <input
       type="number"
       max="100"
@@ -24,7 +19,6 @@
       class="txtLimiteAsistentes"
       placeholder="max Asistentes"
     />
-    "limiteAsist": 100,
     <input
       type="text"
       name="txtDescripcion"
@@ -32,8 +26,9 @@
       class="txtDescripcion"
       placeholder="Descripcion del Evento (lugar, forma de llegar, requisitos, discriminacion de tipos depersonas que pueden asistir etc.)"
     />
-    "descripcion": "Fiesta de Año Nuevo en la piscina del hotel La Casona",
     <input type="file" name="imgEvento" id="imgEvento" class="imgEvento" placeholder="Imagen para es evento!" />
-    "urlImage": "https://media-cdn.tripadvisor.com/media/photo-s/03/77/c9/c9/la-casona.jpg"
   </form>
+  {{#if mensaje}}
+    <div><p>{{mensaje}}</p></div>
+  {{/if}}
 </div>

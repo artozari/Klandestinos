@@ -66,9 +66,35 @@ function fechaYHora() {
   return `${anio}${mes}${dia}-${hora}${mins}${segs}${mils}`;
 }
 
+function validarEvento(nombre, fecha, fechaFin, ubicacion, limiteAsistentes, descripcion, img, user) {
+  if (nombre != "" && fecha > fechaFin && ubicacion != "" && limiteAsistentes > 0 && limiteAsistentes < 100 && descripcion != "") {
+    let evento = {
+      nombre: nombre,
+      fechaEvento: fecha,
+      fechaFin: fechaFin,
+      ubicacion: ubicacion,
+      limiteAsist: limiteAsistentes,
+      descripcion: descripcion,
+      urlImage: img,
+      usuarioCreado: user,
+      asistentes: {
+        usuario: {
+          nick: "",
+          mensajes: {
+            msj: "",
+            fecha: "",
+          },
+        },
+      },
+    };
+    return evento;
+  } else return false;
+}
+
 module.exports = {
   iniciarSesion,
   validarRegistro,
   formatearUsuario,
   fechaYHora,
+  validarEvento,
 };

@@ -121,7 +121,7 @@ function registrarUsuario(newUsuario, err, cbOk) {
   });
 }
 
-function crearEvento(newEvento, err, cbDatos) {
+function registrarEvento(newEvento, err, cbDatos) {
   const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
@@ -148,4 +148,5 @@ module.exports = {
   obtenerEventosPorUsuario,
   obtenerEventosSiguientes,
   registrarUsuario,
+  registrarEvento,
 };

@@ -163,8 +163,35 @@ app.get("/registroEvento", function (req, res) {
   if (!req.session.nick) {
     res.redirect("/");
   } else {
-    console.log(req.session);
-    res.render("registroEvento", { datos: req.session, fotoPerfil: req.session.foto });
+    let nombreEvento = req.body.txtEvento;
+    let fechaEvento = req.body.txtFechaEvento;
+    let fechaFinEvento = req.body.txtfechaFinEvento;
+    let ubicacionEvento = req.body.txtUbicacion;
+    let maxAsistentes = req.body.txtLimiteAsistentes;
+    let descripcion = req.body.txtDescripcion;
+    let imgEvento = req.body.imgEvento;
+    let evento = funcs.validarEvento(
+      nombreEvento,
+      fechaEvento,
+      fechaFinEvento,
+      ubicacionEvento,
+      maxAsistentes,
+      descripcion,
+      imgEvento,
+      req.session.nick
+    );
+    if (evento) {
+      bd.registrarEvento(
+        evento,
+        (err) => {
+          res.render("registroEvento", { error: "ERROR: El evento no pudo ser registrado" });
+        },
+        (cbDatos) => {
+          let datos = req.session;
+          res.render("registroEvento", { datos, mensaje: `El evento ${nombreEvento}, fue registrado!` });
+        }
+      );
+    }
   }
 });
 

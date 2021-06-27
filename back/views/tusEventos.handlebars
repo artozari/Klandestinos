@@ -1,7 +1,13 @@
+<div>
+  <input type="button" name="btnRegistroEvento" id="bntRegistroEvento" value="Crear nuevo Evento" />
+</div>
+<script>
+  const btnRegistroEvento = document.getElementById("bntRegistroEvento"); btnRegistroEvento.addEventListener("click",(res, send)=>{
+  res.send("registroEvento"); })
+</script>
 {{#if eventos}}
   {{#each eventos}}
     <div class="tusEventos">
-
       <h1>{{this.nombre}}</h1>
       <img src="{{this.urlImage}}" alt="" />
       <h2 class="organizador">Organizador: {{this.usuarioCreador}}</h2>
