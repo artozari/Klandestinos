@@ -67,7 +67,8 @@ app.get("/home", function (req, res) {
     let nombre = req.session.nombre;
     let fotoPerfil = req.session.foto;
     let id = req.session.id;
-    res.render("home", { usuario, nombre, fotoPerfil });
+    let datos = req.session;
+    res.render("home", { usuario, nombre, fotoPerfil, datos });
   } else res.redirect("/");
 });
 
@@ -89,8 +90,8 @@ app.get("/tusEventos", function (req, res) {
       },
       (cbdatosEventos) => {
         let eventos = cbdatosEventos;
-        console.log(eventos);
-        res.render("tusEventos", { eventos, usuario: req.session.nick, fotoPerfil: req.session.foto });
+        let datos = req.session;
+        res.render("tusEventos", { eventos, usuario: req.session.nick, fotoPerfil: req.session.foto, datos });
       }
     );
   }
@@ -109,7 +110,8 @@ app.get("/eventosProximos", function (req, res) {
       (cbdatosEventos) => {
         let eventos = cbdatosEventos;
         let fotoPerfil = req.session.foto;
-        res.render("tusEventos", { eventos, usuario: req.session.nick, fotoPerfil });
+        let datos = req.session;
+        res.render("tusEventos", { eventos, usuario: req.session.nick, fotoPerfil, datos }); //// no hay datos
       }
     );
   }
@@ -171,49 +173,3 @@ app.get("/registroEvento", function (req, res) {
 app.listen(port, function () {
   console.log(`escuchando el puerto: ${port} para Klandestinos`);
 });
-
-// app.post("/login", function (req, res) {
-//   const user = req.body.txtUser;
-//   const pass = req.body.txtPassword;
-//   let todosLosDatos = { datos: { mensaje: "algo" } };
-//   bd.obtenerUsuario(
-//     user,
-//     pass,
-//     (err) => {
-//       res.render("mainLogin", { error: `ERROR: Se presento un error ${err}` });
-//       console.log("Error");
-//     },
-//     (cbdatos) => {
-//       todosLosDatos.usuario = cbdatos;
-//       req.session.nick = todosLosDatos.usuario.nick;
-//       // console.log(req.session.nick);
-//       bd.obtenerEvento(
-//         1,
-//         (error) => {
-//           res.render(`ERROR: Se presento un error al consultar el evento: ${error}`);
-//           console.log("Error");
-//         },
-//         (cbdatosEvento) => {
-//           todosLosDatos.evento = cbdatosEvento;
-//           bd.obtenerPerfil(
-//             "Angel",
-//             (error) => {
-//               res.render(`ERROR: Se presento un error al consultar el evento: ${error}`);
-//               console.log("Error");
-//             },
-//             (cbdatosPerfil) => {
-//               todosLosDatos.perfil = cbdatosPerfil;
-//               console.log(todosLosDatos);
-//               if (req.session.nick) {
-//                 res.render("mainLogin", { todosLosDatos });
-//               } else {
-//                 console.log("no se conecto un usuario");
-//                 return;
-//               }
-//             }
-//           );
-//         }
-//       );
-//     }
-//   );
-// });
