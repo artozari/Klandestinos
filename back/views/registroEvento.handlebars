@@ -1,15 +1,15 @@
 <div class="newEvento">
-  <form action="/crearEvento" method="post">
-    <input type="text" name="txrEvento" id="txtEvento" class="txtEvento" placeholder="Nombre del evento a crear" />
+  <form action="/registroEvento" method="post">
+    <input type="text" name="txtEvento" id="txtEvento" class="txtEvento" placeholder="Nombre del evento a crear" />
     <input type="datetime-local" name="txtFechaEvento" id="txtFechaEvento" class="txtFechaEvento" placeholder="Fecha del evento" />
     <input
       type="datetime-local"
-      name="txtFechaFinEvento"
+      name="txtFechafinEvento"
       id="txtFechaFinEvento"
       class="txtFechaFinEvento"
-      placeholder="Fecha fin del eveno"
+      placeholder="Fecha fin del evento"
     />
-    <input type="text" name="txtUbicaion" id="txtUbicacion" class="txtUbicacion" placeholder="Lugar del evento" />
+    <input type="text" name="txtUbicacion" id="txtUbicacion" class="txtUbicacion" placeholder="Lugar del evento" />
     <input
       type="number"
       max="100"
@@ -27,6 +27,7 @@
       placeholder="Descripcion del Evento (lugar, forma de llegar, requisitos, discriminacion de tipos depersonas que pueden asistir etc.)"
     />
     <input type="file" name="imgEvento" id="imgEvento" class="imgEvento" placeholder="Imagen para es evento!" />
+    <input type="submit" value="enviar" />
   </form>
   {{#if mensaje}}
     <div><p>{{mensaje}}</p></div>

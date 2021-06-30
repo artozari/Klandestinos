@@ -159,13 +159,13 @@ app.get("/perfil", function (req, res) {
   }
 });
 
-app.get("/registroEvento", function (req, res) {
+app.post("/registroEvento", function (req, res) {
   if (!req.session.nick) {
     res.redirect("/");
   } else {
     let nombreEvento = req.body.txtEvento;
     let fechaEvento = req.body.txtFechaEvento;
-    let fechaFinEvento = req.body.txtfechaFinEvento;
+    let fechaFinEvento = req.body.txtFechafinEvento;
     let ubicacionEvento = req.body.txtUbicacion;
     let maxAsistentes = req.body.txtLimiteAsistentes;
     let descripcion = req.body.txtDescripcion;
@@ -180,6 +180,7 @@ app.get("/registroEvento", function (req, res) {
       imgEvento,
       req.session.nick
     );
+    console.log(evento);
     if (evento) {
       bd.registrarEvento(
         evento,
@@ -191,6 +192,8 @@ app.get("/registroEvento", function (req, res) {
           res.render("registroEvento", { datos, mensaje: `El evento ${nombreEvento}, fue registrado!` });
         }
       );
+    } else {
+      res.render("registroEvento", { datos: req.session });
     }
   }
 });
