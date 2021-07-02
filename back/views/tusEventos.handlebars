@@ -7,6 +7,8 @@
   {{#each eventos}}
     <div class="tusEventos">
       <h1>{{this.nombre}}</h1>
+      <input type="hidden" name="idHidden" value="{{this._id}}" id="idHidden" />
+
       <img src="{{this.urlImage}}" alt="" />
       <h2 class="organizador">Organizador: {{this.usuarioCreador}}</h2>
       <h3 class="desdeHasta">Desde: {{this.fechaEvento}} - Hasta:{{this.fechaFin}}</h3>
@@ -14,14 +16,22 @@
       <p class="descripcionEvento">{{this.descripcion}}</p>
       <input type="button" value="Asistir" id="btnAsistirEvento" class="btnAsistirEvento" />
       <input type="button" value="Compartir" id="btnCompartirEvento" class="btnCompartirEvento" />
-      <input type="text" name="inputComentario" class="inputComentario" />
-      <input type="button" value="Comentar" id="btnComentar" class="btnComentar" />
-      <div class="mensajesDeEvento">
-        <h4>Mensajes</h4><br />
-        <h5>
-          {{this.asistentes.usuario.nick}}:
-          {{this.asistentes.usuario.mensajes.msj}}
-        </h5>
+
+      {{! desde aqui se comenta y se muestran comentarios }}
+      <div class="contenedor-Comentarios" id="contenedor-Comentarios">
+        <input type="text" name="inputComentario" class="inputComentario" id="inputComentario" />
+        <input type="button" value="Comentar" id="btnComentar" class="btnComentar" />
+        <div class="mensajesDeEvento" id="mensajesDeEvento">
+          <div>
+            <textarea name="txtAreaComentarios" id="txtAreaComentarios" cols="30" rows="10"></textarea>
+          </div>
+          <h4>Mensajes</h4><br />
+          <h5>
+            {{this.asistentes.usuario.nick}}:
+            {{this.asistentes.usuario.mensajes.msj}}
+          </h5>
+        </div>
+        {{! <script src="../../front/js/contenedorComentarios.js"></script> }}
       </div>
 
     </div>

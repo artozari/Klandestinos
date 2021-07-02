@@ -19,6 +19,7 @@ app.use(
 
 app.use(express.static(path.join(__dirname, "../front")));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.engine(
   "handlebars",
@@ -194,6 +195,51 @@ app.post("/registroEvento", function (req, res) {
       );
     } else {
       res.render("registroEvento", { datos: req.session });
+    }
+  }
+});
+
+app.post("asisitirAlEvento", function (req, res) {
+  if (!req.session.nick) {
+    res.redirect("/");
+  } else {
+  }
+});
+
+app.post("/entradaDeComentario", function (req, res) {
+  if (!req.session.nick) {
+    res.redirect("/");
+  } else {
+    let userComenta = req.session.nick;
+    let comentario = req.body.comentario;
+    let idEvento = req.body.id;
+    const validado = funcs.validarComentario(userComenta, comentario);
+    console.log(validado);
+    if (validado) {
+      bd.userAsistenteDeEvento(
+        userComenta,
+        idEvento,
+        (err) => {
+          console.log("ocurrio un Error al validar el id del evento a comentar");
+          return;
+        },
+        (cbDatos) => {
+          if (cbDatos) {
+            bd.comentarEnEvento(
+              idEvento,
+              validado,
+              (err) => {
+                console.log("Error al guardar el mensaje");
+                res.send(`tu comentario no pudo se agregado intenta en unos minutos`);
+              },
+              (cbOk) => {
+                console.log("comentario guardado");
+                res.send({ datos: req.session, comentario, idEvento });
+              }
+            );
+          }
+        }
+      );
     }
   }
 });

@@ -63,7 +63,7 @@ function fechaYHora() {
   const mins = date.getMinutes().toString().padStart(2, "0");
   const segs = date.getSeconds().toString().padStart(2, "0");
   const mils = date.getMilliseconds().toString();
-  return `${anio}${mes}${dia}-${hora}${mins}${segs}${mils}`;
+  return `${anio}-${mes}-${dia}-${hora}:${mins}:${segs}:${mils}`;
 }
 
 function validarEvento(nombre, fecha, fechaFin, ubicacion, limiteAsistentes, descripcion, img, user) {
@@ -85,17 +85,27 @@ function validarEvento(nombre, fecha, fechaFin, ubicacion, limiteAsistentes, des
       descripcion: descripcion,
       urlImage: img,
       usuarioCreador: user,
-      asistentes: {
-        usuario: {
+      asistentes: [`${user}`],
+      mensajes: [
+        {
           nick: "",
-          mensajes: {
-            msj: "",
-            fecha: "",
-          },
+          mensaje: "",
+          fechaMensaje: "",
         },
-      },
+      ],
     };
     return evento;
+  } else return false;
+}
+
+function validarComentario(user, comentario) {
+  if (comentario != "" && user != "") {
+    let dato = {
+      nick: user,
+      mensaje: comentario,
+      fechaMensaje: fechaYHora(),
+    };
+    return dato;
   } else return false;
 }
 
@@ -105,4 +115,5 @@ module.exports = {
   formatearUsuario,
   fechaYHora,
   validarEvento,
+  validarComentario,
 };

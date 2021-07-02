@@ -1,0 +1,22 @@
+{
+  "_id": {
+    "$oid": "60cfaa416688d203644a5b69"
+  },
+  "id": 1,
+  "nombre": "PoolParty",
+  "fechaEvento": "31/12/2021",
+  "fechaFin": "01/01/2022",
+  "ubicacion": "La casona",
+  "limiteAsist": 100,
+  "descripcion": "Fiesta de Año Nuevo en la piscina del hotel La Casona",
+  "urlImage": "https://media-cdn.tripadvisor.com/media/photo-s/03/77/c9/c9/la-casona.jpg",
+  "usuarioCreador": "artozari",
+  "asistentes": [""],
+  "mensajes": [
+    {
+      "nick": "",
+      "mensaje": "",
+      "fechaMensaje": ""
+    }
+  ]
+}

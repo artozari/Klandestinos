@@ -1,5 +1,17 @@
 const mongodb = require(`mongodb`);
 
+function fechaYHora() {
+  const date = new Date();
+  const anio = date.getFullYear().toString();
+  const mes = (date.getMonth() + 1).toString().padStart(2, "0");
+  const dia = date.getDate().toString().padStart(2, "0");
+  const hora = date.getHours().toString().padStart(2, "0");
+  const mins = date.getMinutes().toString().padStart(2, "0");
+  const segs = date.getSeconds().toString().padStart(2, "0");
+  const mils = date.getMilliseconds().toString();
+  return `${anio}${mes}${dia}-${hora}${mins}${segs}${mils}`;
+}
+
 function obtenerUsuarios(err, cbDatos) {
   const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
     if (err) {
@@ -140,6 +152,40 @@ function registrarEvento(newEvento, err, cbOk) {
   });
 }
 
+function userAsistenteDeEvento(nick, idEvento, err, cbDatos) {
+  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+    if (err) {
+      console.log("hubo un error al conectar");
+      return;
+    }
+    const klandb = cliente.db("klandestinos");
+    const colecciondb = klandb.collection("evento");
+    colecciondb.find({ _id: mongodb.ObjectId(idEvento) }).toArray(function (err, datos) {
+      cbDatos(datos);
+    });
+  });
+}
+
+function comentarEnEvento(idEvento, comentario, err, cbOk) {
+  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+    if (err) {
+      console.log("hubo un error al conectar");
+      return;
+    }
+    const klandb = cliente.db("klandestinos");
+    const colecciondb = klandb.collection("evento");
+    console.log(`Antes del updateOne ${typeof idEvento}`);
+    colecciondb.updateOne({ _id: mongodb.ObjectId(idEvento) }, { $addToSet: { mensajes: comentario } }, function (err, datos) {
+      if (err) {
+        err(err);
+        console.log(err);
+      }
+      cliente.close();
+      cbOk();
+    });
+  });
+}
+
 module.exports = {
   obtenerUsuarios,
   obtenerUsuario,
@@ -149,4 +195,6 @@ module.exports = {
   obtenerEventosSiguientes,
   registrarUsuario,
   registrarEvento,
+  userAsistenteDeEvento,
+  comentarEnEvento,
 };
