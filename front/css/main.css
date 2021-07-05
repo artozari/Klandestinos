@@ -22,20 +22,22 @@ html {
 .header {
   grid-area: header;
   background-color: aquamarine;
+  box-shadow: 5px 5px 5px black;
 }
 .navBar {
   grid-area: navbar;
   background-color: cadetblue;
-  box-shadow: 10px 5px 5px black;
+  box-shadow: 5px 5px 5px black;
 }
 .main {
   grid-area: main;
   background-color: yellowgreen;
-  box-shadow: 10px 5px 5px black;
+  box-shadow: 5px 5px 5px black;
 }
 .sideBar {
   grid-area: sideBar;
   background-color: darkgoldenrod;
+  box-shadow: 5px 5px 5px black;
 }
 .footer {
   grid-area: footer;
@@ -43,7 +45,6 @@ html {
   color: white;
   background-color: black;
   border-radius: 10px;
-  box-shadow: 10px 5px 5px black;
 }
 
 .grid-container {

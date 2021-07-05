@@ -91,8 +91,10 @@ app.get("/tusEventos", function (req, res) {
       },
       (cbdatosEventos) => {
         let eventos = cbdatosEventos;
+        let cantEventos = cbdatosEventos.length;
+        console.log(cantEventos);
         let datos = req.session;
-        res.render("tusEventos", { eventos, usuario: req.session.nick, fotoPerfil: req.session.foto, datos });
+        res.render("tusEventos", { eventos, usuario: req.session.nick, fotoPerfil: req.session.foto, datos, cantEventos });
       }
     );
   }
@@ -110,9 +112,11 @@ app.get("/eventosProximos", function (req, res) {
       },
       (cbdatosEventos) => {
         let eventos = cbdatosEventos;
+        let cantEventos = cbdatosEventos.length;
+        console.log(cantEventos);
         let fotoPerfil = req.session.foto;
         let datos = req.session;
-        res.render("tusEventos", { eventos, usuario: req.session.nick, fotoPerfil, datos }); //// no hay datos
+        res.render("tusEventos", { eventos, usuario: req.session.nick, fotoPerfil, datos, cantEventos }); //// no hay datos
       }
     );
   }
