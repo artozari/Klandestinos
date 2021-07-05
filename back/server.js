@@ -199,10 +199,22 @@ app.post("/registroEvento", function (req, res) {
   }
 });
 
-app.post("asisitirAlEvento", function (req, res) {
+app.post("/asistirAlEvento", function (req, res) {
   if (!req.session.nick) {
     res.redirect("/");
   } else {
+    bd.asistirAlEvento(
+      req.body.id,
+      req.session.nick,
+      (err) => {
+        console.log("ocurrio un Error al validar el id del evento o del asistente");
+        return;
+      },
+      (cbOk) => {
+        console.log("asistente agregado");
+        res.send({ datos: req.session, mensaje: "Asistente agregado", idEvento: req.body.id });
+      }
+    );
   }
 });
 
@@ -223,7 +235,7 @@ app.post("/entradaDeComentario", function (req, res) {
           return;
         },
         (cbDatos) => {
-          if (cbDatos) {
+          if (cbDatos != "") {
             bd.comentarEnEvento(
               idEvento,
               validado,
@@ -236,6 +248,9 @@ app.post("/entradaDeComentario", function (req, res) {
                 res.send({ datos: req.session, comentario, idEvento });
               }
             );
+          } else {
+            console.log("Usuario no es asistente de ese evento");
+            res.send({ datos: req.session, comentario: "Usuario no es asistente de ese evento", idEvento });
           }
         }
       );

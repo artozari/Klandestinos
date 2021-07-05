@@ -152,6 +152,25 @@ function registrarEvento(newEvento, err, cbOk) {
   });
 }
 
+function asistirAlEvento(idEvento, nick, err, cbOk) {
+  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+    if (err) {
+      console.log("Hubo un error al conectar");
+      return;
+    }
+    const klandb = cliente.db("klandestinos");
+    const colecciondb = klandb.collection("evento");
+    colecciondb.updateOne({ _id: mongodb.ObjectId(idEvento) }, { $addToSet: { asistentes: nick } }, function (err, datos) {
+      if (err) {
+        err(err);
+        console.log(err);
+      }
+      cliente.close();
+      cbOk();
+    });
+  });
+}
+
 function userAsistenteDeEvento(nick, idEvento, err, cbDatos) {
   const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
     if (err) {
@@ -160,7 +179,9 @@ function userAsistenteDeEvento(nick, idEvento, err, cbDatos) {
     }
     const klandb = cliente.db("klandestinos");
     const colecciondb = klandb.collection("evento");
-    colecciondb.find({ _id: mongodb.ObjectId(idEvento) }).toArray(function (err, datos) {
+    console.log(nick + " usuarios");
+    colecciondb.find({ _id: mongodb.ObjectId(idEvento), asistentes: nick }).toArray(function (err, datos) {
+      console.log(datos + " datos");
       cbDatos(datos);
     });
   });
@@ -194,6 +215,7 @@ module.exports = {
   obtenerEventosSiguientes,
   registrarUsuario,
   registrarEvento,
+  asistirAlEvento,
   userAsistenteDeEvento,
   comentarEnEvento,
 };
