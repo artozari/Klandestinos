@@ -174,7 +174,6 @@ function comentarEnEvento(idEvento, comentario, err, cbOk) {
     }
     const klandb = cliente.db("klandestinos");
     const colecciondb = klandb.collection("evento");
-    console.log(`Antes del updateOne ${typeof idEvento}`);
     colecciondb.updateOne({ _id: mongodb.ObjectId(idEvento) }, { $addToSet: { mensajes: comentario } }, function (err, datos) {
       if (err) {
         err(err);

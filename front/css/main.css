@@ -26,10 +26,12 @@ html {
 .navBar {
   grid-area: navbar;
   background-color: cadetblue;
+  box-shadow: 10px 5px 5px black;
 }
 .main {
   grid-area: main;
   background-color: yellowgreen;
+  box-shadow: 10px 5px 5px black;
 }
 .sideBar {
   grid-area: sideBar;
@@ -41,6 +43,7 @@ html {
   color: white;
   background-color: black;
   border-radius: 10px;
+  box-shadow: 10px 5px 5px black;
 }
 
 .grid-container {

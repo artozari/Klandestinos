@@ -22,9 +22,11 @@ btnComentar.addEventListener("click", function () {
   /*  esto tiene que agregar el comentario en la base de datos y luego actualizar el Text Area de los comentarios con los comentarios existentes para ese evento y solo si es que el comentador esta como asistente del evento */
   const xhr = new XMLHttpRequest();
   xhr.addEventListener("load", () => {
-    const response = xhr.responseText;
-    txtAreaComentarios.textContent = response;
-    console.log(response);
+    let response = JSON.parse(xhr.responseText);
+    console.log(response.comentario);
+    txtAreaComentarios.textContent = response.comentario;
+
+    // console.log(response);
   });
   xhr.open("POST", `/entradaDeComentario`);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");

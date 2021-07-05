@@ -214,7 +214,6 @@ app.post("/entradaDeComentario", function (req, res) {
     let comentario = req.body.comentario;
     let idEvento = req.body.id;
     const validado = funcs.validarComentario(userComenta, comentario);
-    console.log(validado);
     if (validado) {
       bd.userAsistenteDeEvento(
         userComenta,
