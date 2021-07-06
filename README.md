@@ -14,3 +14,12 @@ de diferente tipo.
 ![tangoEvento](https://user-images.githubusercontent.com/58455779/124668346-1b9a9980-de87-11eb-8058-ba43fe640ae0.png)
 
 ### Eres bienvenido a participar de esta pequeña red social de eventos !! TE ESPERAMOS....
+
+
+# tecnologias y herramientas
+
+### html
+### css
+### JavaScript
+### Ajax
+### MongoDb
