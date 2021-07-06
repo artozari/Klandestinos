@@ -80,9 +80,12 @@ function obtenerEventosSiguientes(err, cbDatos) {
     const hoy = new Date(tiempoTranscurrido);
     const mes = hoy.getMonth() + 1 < 10 ? `0${hoy.getMonth() + 1}` : `${hoy.getMonth() + 1}`;
     let ya = `${hoy.getDate()}/${mes}/${hoy.getFullYear()}`; // "22/06/2020"
-    colecciondb.find(/* { fechaEvento: ya } */).toArray(function (err, datos) {
-      cbDatos(datos);
-    });
+    colecciondb
+      .find(/* { fechaEvento: ya } */)
+      .sort({ fechaEvento: 1 })
+      .toArray(function (err, datos) {
+        cbDatos(datos);
+      });
   });
 }
 
@@ -108,9 +111,12 @@ function obtenerEventosPorUsuario(usuarioCreador, err, cbDatos) {
     }
     const klandb = cliente.db("klandestinos");
     const colecciondb = klandb.collection("evento");
-    colecciondb.find({ usuarioCreador: usuarioCreador }).toArray(function (err, datos) {
-      cbDatos(datos);
-    });
+    colecciondb
+      .find({ usuarioCreador: usuarioCreador })
+      .sort({ fechaEvento: 1 })
+      .toArray(function (err, datos) {
+        cbDatos(datos);
+      });
   });
 }
 
