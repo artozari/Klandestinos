@@ -68,11 +68,6 @@ function fechaYHora() {
 
 function validarEvento(nombre, fecha, fechaFin, ubicacion, limiteAsistentes, descripcion, img, user) {
   console.log(nombre, fecha, fechaFin, ubicacion, limiteAsistentes, descripcion, img, user);
-  // if (fecha > fechaFin) {
-  //   console.log("fecha es mayor a fecha fin");
-  // } else {
-  //   console.log("fecha no es mayor a fecha fin");
-  // }
   if (nombre != "" && fecha < fechaFin && ubicacion != "" && limiteAsistentes > 0 && limiteAsistentes < 100 && descripcion != "") {
     console.log(nombre, fecha, fechaFin, ubicacion, limiteAsistentes, descripcion, img, user);
     console.log("aqui toy");
