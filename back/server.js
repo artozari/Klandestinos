@@ -222,6 +222,27 @@ app.post("/asistirAlEvento", function (req, res) {
   }
 });
 
+app.post("/quitarAsistente", function (req, res) {
+  if (!req.session.nick) {
+    res.redirect("/");
+  } else {
+    let idEvento = req.body.id;
+    let nick = req.session.nick;
+    bd.quitarAsistente(
+      idEvento,
+      nick,
+      (err) => {
+        console.log("error al Quitar asistente del evento");
+        return;
+      },
+      (cbOk) => {
+        console.log("asistente eliminado del Evento");
+        res.send({ datos: req.session, msjAsistenteEliminado: `${req.session.nick}, ya no eres asistente de este evento` });
+      }
+    );
+  }
+});
+
 app.post("/entradaDeComentario", function (req, res) {
   if (!req.session.nick) {
     res.redirect("/");
@@ -249,16 +270,45 @@ app.post("/entradaDeComentario", function (req, res) {
               },
               (cbOk) => {
                 console.log("comentario guardado");
-                res.send({ datos: req.session, comentario, idEvento });
+                let fecha = funcs.fechaYHora();
+                console.log(fecha);
+                res.send({ datos: req.session, comentario, idEvento, datosEvento: cbDatos, fecha: fecha });
               }
             );
           } else {
             console.log("Usuario no es asistente de ese evento");
-            res.send({ datos: req.session, comentario: "Usuario no es asistente de ese evento", idEvento });
+            res.send({ datos: req.session, rechazo: "Usuario no es asistente de ese evento", idEvento });
           }
         }
       );
     }
+  }
+});
+
+app.post("/comentariosDeEvento", function (req, res) {
+  if (!req.session.nick) {
+    res.redirect("/");
+  } else {
+    bd.obtenerComentariosDeEvento(
+      req.body.idEvento,
+      (err) => {
+        console.log("ocurrio un Error al obtener los comentarios de un evento");
+        return;
+      },
+      (cbDatos) => {
+        console.log("comentarios de evento enviados");
+        console.log(cbDatos + " asls");
+        res.send({ datos: cbDatos });
+      }
+    );
+  }
+});
+
+app.get("/pasarElRato", function (req, res) {
+  if (!req.session.nick) {
+    res.redirect("/");
+  } else {
+    res.render("pasarElRato", { datos: req.session, fotoPerfil: req.session.foto });
   }
 });
 

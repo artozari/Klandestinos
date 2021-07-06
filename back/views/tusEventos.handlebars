@@ -10,7 +10,7 @@
 {{#if cantEventos}}
   {{#if eventos}}
     {{#each eventos}}
-      <div class="tusEventos" name="tusEventos" id="tusEventos">
+      <div class="tusEventos" name="tusEventos">
         <h1>{{this.nombre}}</h1>
         <input type="hidden" name="idHidden" value="{{this._id}}" id="idHidden" />
         <img src="{{this.urlImage}}" alt="" />
@@ -19,7 +19,8 @@
         <p class="ubicacionEvento">{{this.ubicacion}}</p>
         <p class="descripcionEvento">{{this.descripcion}}</p>
         <input type="button" value="Asistir" id="btnAsistirEvento" class="btnAsistirEvento" />
-        <input type="button" value="Compartir" id="btnCompartirEvento" class="btnCompartirEvento" />
+        <input type="button" value="abandonar" id="btnAbandonarEvento" class="btnAbandonarEvento" />
+        {{! <input type="button" value="Compartir" id="btnCompartirEvento" class="btnCompartirEvento" /> }}
 
         {{! desde aqui se comenta y se muestran comentarios }}
 
@@ -28,14 +29,9 @@
           <input type="text" name="inputComentario" class="inputComentario" id="inputComentario" />
           <input type="button" value="Comentar" id="btnComentar" class="btnComentar" />
           <div class="mensajesDeEvento" id="mensajesDeEvento">
-            <div>
-              <textarea name="txtAreaComentarios" id="txtAreaComentarios" cols="30" rows="10"></textarea>
+            <div class="losComentarios" id="losComentarios">
+              {{! <textarea name="txtAreaComentarios" id="txtAreaComentarios" cols="30" rows="10"></textarea> }}
             </div>
-            <h4>Mensajes</h4><br />
-            <h5>
-              {{this.asistentes.usuario.nick}}:
-              {{this.asistentes.usuario.mensajes.msj}}
-            </h5>
           </div>
           {{! <script src="../../front/js/contenedorComentarios.js"></script> }}
         </div>
