@@ -5,9 +5,28 @@ const path = require("path");
 const expHbs = require("express-handlebars");
 const bd = require(`./bd`);
 const expSession = require("express-session");
+const multer = require("multer");
 
 const funcs = require("./modulos/funcs");
 const { Db } = require("mongodb");
+
+let nombreImages = "";
+
+const storage = multer.diskStorage({
+  destination: (req, file, cbCarpetaArchivo) => {
+    cbCarpetaArchivo(null, "server/temp");
+  },
+  filename: (req, file, cbNombreArchivo) => {
+    extension = file.originalname.slice(file.originalname.lastIndexOf("."));
+    console.log(file);
+
+    nombreImages = "img-" + funcs.fechaYHoraImg() + extension;
+
+    cbNombreArchivo(null, nombreImages);
+  },
+});
+
+const upload = multer({ storage });
 
 app.use(
   expSession({
@@ -161,6 +180,33 @@ app.get("/perfil", function (req, res) {
     res.redirect("/");
   } else {
     res.render("perfil", { datos: req.session, usuario: req.session.nick, fotoPerfil: req.session.foto });
+  }
+});
+
+app.post("/registrosPerfil", upload.single("fotoPerfil"), (req, res) => {
+  console.log(req.file);
+  if (!req.session.nick) {
+    res.redirect("/");
+  } else {
+    let nombre = req.body.txtNombre;
+    let apellidos = req.body.txtApellidos;
+    let fechaNac = req.body.txtFechaNac;
+    let direccion = req.body.txtDireccion;
+    let telefono = req.body.txtTelf;
+    let fotoPerfil = nombreImages;
+    console.log(nombreImages);
+    let perfil = funcs.formatearPerfilUsuario(nombre, apellidos, fechaNac, direccion, telefono, fotoPerfil);
+    bd.ActualizarPerfilUser(
+      req.session.nick,
+      perfil,
+      (err) => {
+        res.render("ERROR: no se pudo subir la picture papa!!");
+      },
+      (cbOk) => {
+        res.render("perfil", { datos: req.session, usuario: req.session.nick, fotoPerfil: req.session.foto, msj: "foto Subida" });
+      }
+    );
+    res.send("archivo subido");
   }
 });
 

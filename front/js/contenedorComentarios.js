@@ -111,3 +111,13 @@ function llenarMensajes(idEvento, txtAreaComentarios, divLosComentarios) {
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhr.send(JSON.stringify({ idEvento: idEvento }));
 }
+
+// setTimeout(() => {
+//   divContComent.forEach(function (element) {
+//     llenarMensajes(
+//       element.querySelector("#idHidden").value,
+//       element.querySelector("#txtAreaComentarios"),
+//       element.querySelector("#losComentarios")
+//     );
+//   });
+// }, 5000);

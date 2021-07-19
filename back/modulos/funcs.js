@@ -54,6 +54,18 @@ function formatearUsuario(usuario, email, pass) {
   return usuarioVal;
 }
 
+function formatearPerfilUsuario(nombre, apellidos, fechaNac, direccion, telf, fotoPerfil) {
+  const perfil = {
+    nombre: nombre,
+    apellidos: apellidos,
+    fechaNac: fechaNac,
+    direccion: direccion,
+    telefono: telf,
+    fotoPerfil: fotoPerfil,
+  };
+  return perfil;
+}
+
 function fechaYHora() {
   const date = new Date();
   const anio = date.getFullYear().toString();
@@ -64,6 +76,20 @@ function fechaYHora() {
   const segs = date.getSeconds().toString().padStart(2, "0");
   const mils = date.getMilliseconds().toString();
   return `${anio}-${mes}-${dia}-${hora}:${mins}:${segs}:${mils}`;
+}
+
+function fechaYHoraImg() {
+  const date = new Date();
+
+  const anio = date.getFullYear().toString();
+  const mes = (date.getMonth() + 1).toString().padStart(2, "0");
+  const dia = date.getDate().toString().padStart(2, "0");
+  const hora = date.getHours().toString().padStart(2, "0");
+  const mins = date.getMinutes().toString().padStart(2, "0");
+  const segs = date.getSeconds().toString().padStart(2, "0");
+  const mils = date.getMilliseconds().toString();
+
+  return `${anio}${mes}${dia}-${hora}${mins}${segs}${mils}`;
 }
 
 function validarEvento(nombre, fecha, fechaFin, ubicacion, limiteAsistentes, descripcion, img, user) {
@@ -111,4 +137,6 @@ module.exports = {
   fechaYHora,
   validarEvento,
   validarComentario,
+  fechaYHoraImg,
+  formatearPerfilUsuario,
 };

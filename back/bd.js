@@ -54,6 +54,25 @@ function obtenerPerfil(nombre, err, cbDatos) {
   });
 }
 
+function ActualizarPerfilUser(nick, perfil, err, cbOk) {
+  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+    if (err) {
+      console.log("hubo un error al conectar");
+      return;
+    }
+    const klandb = cliente.db("klandestinos");
+    const colecciondb = klandb.collection("usuario");
+    colecciondb.updateOne({ nick: nick }, { $set: { perfil: perfil } }, function (error, datos) {
+      if (error) {
+        err(error);
+        console.log("hubo un error al subir la foto de perfil");
+      }
+      cliente.close();
+      cbOk();
+    });
+  });
+}
+
 function obtenerEvento(id, err, cbDatos) {
   const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
     if (err) {
@@ -247,6 +266,7 @@ module.exports = {
   obtenerUsuarios,
   obtenerUsuario,
   obtenerPerfil,
+  ActualizarPerfilUser,
   obtenerEvento,
   obtenerEventosPorUsuario,
   obtenerEventosSiguientes,

@@ -1,19 +1,25 @@
 <div class="perfil">
   <div>
     {{#if datos}}
-      <h3>Perfil de Usuario</h3>
-      <p>"nombre":</p>
-      <input type="text" value="{{this.nombre}}" />
-      <p> "apellidos":</p>
-      <input type="text" value="" />
-      <p> "fechaNac":</p>
-      <input type="text" value="" />
-      <p> "direccion":</p>
-      <input type="text" value="" />
-      <p> "telefono":</p>
-      <input type="text" value="" />
-      <p> "fotoPerfil":</p>
-      <input type="text" value="" />
+      <form action="registrosPerfil" method="post" enctype="multipart/form-data">
+        <h3>Perfil de Usuario</h3>
+        <p>Nombre:</p>
+        <input type="text" value="{{this.nombre}}" name="txtNombre" />
+        <p> Apellidos:</p>
+        <input type="text" value="" name="txtApellidos" />
+        <p> Fecha de Nacimiento:</p>
+        <input type="text" value="" name="txtFechaNac" />
+        <p> Direccion:</p>
+        <input type="text" value="" name="txtDireccion" />
+        <p> Telefono:</p>
+        <input type="text" value="" name="txtTelf" />
+        <p> Foto de perfil:</p>
+        <input type="file" name="fotoPerfil" id="fotoPerfil" /><br />
+        <input type="submit" name="btnGuardarPerfil" value="Guardar" />
+      </form>
+    {{/if}}
+    {{#if msj}}
+      <P> {{msj}}</P>
     {{/if}}
   </div>
 </div>
