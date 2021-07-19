@@ -193,7 +193,7 @@ app.post("/registrosPerfil", upload.single("fotoPerfil"), (req, res) => {
     let fechaNac = req.body.txtFechaNac;
     let direccion = req.body.txtDireccion;
     let telefono = req.body.txtTelf;
-    let fotoPerfil = nombreImages;
+    let fotoPerfil = req.file.path;
     console.log(nombreImages);
     let perfil = funcs.formatearPerfilUsuario(nombre, apellidos, fechaNac, direccion, telefono, fotoPerfil);
     bd.ActualizarPerfilUser(

@@ -66,6 +66,7 @@ function ActualizarPerfilUser(nick, perfil, err, cbOk) {
       if (error) {
         err(error);
         console.log("hubo un error al subir la foto de perfil");
+        return;
       }
       cliente.close();
       cbOk();
