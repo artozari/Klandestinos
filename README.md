@@ -18,8 +18,9 @@ de diferente tipo.
 
 # tecnologias y herramientas
 
-### html
-### css
+### Html
+### Css
 ### JavaScript
+### NodeJS
 ### Ajax
 ### MongoDb
