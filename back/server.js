@@ -194,13 +194,12 @@ app.post("/registrosPerfil", upload.single("fotoPerfil"), (req, res) => {
     let direccion = req.body.txtDireccion;
     let telefono = req.body.txtTelf;
     let fotoPerfil = req.file.path;
-    console.log(nombreImages);
     let perfil = funcs.formatearPerfilUsuario(nombre, apellidos, fechaNac, direccion, telefono, fotoPerfil);
     bd.ActualizarPerfilUser(
       req.session.nick,
       perfil,
       (err) => {
-        res.render("ERROR: no se pudo subir la picture papa!!");
+        res.render("ERROR: no se pudo subir la imagen!!");
       },
       (cbOk) => {
         res.render("perfil", { datos: req.session, usuario: req.session.nick, fotoPerfil: req.session.foto, msj: "foto Subida" });
