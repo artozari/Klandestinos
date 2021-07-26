@@ -193,7 +193,8 @@ app.post("/registrosPerfil", upload.single("fotoPerfil"), (req, res) => {
     let fechaNac = req.body.txtFechaNac;
     let direccion = req.body.txtDireccion;
     let telefono = req.body.txtTelf;
-    let fotoPerfil = req.file.path;
+    let fotoPerfil = path.join(__dirname, req.file.path);
+    console.log(fotoPerfil);
     let perfil = funcs.formatearPerfilUsuario(nombre, apellidos, fechaNac, direccion, telefono, fotoPerfil);
     bd.ActualizarPerfilUser(
       req.session.nick,
@@ -355,6 +356,10 @@ app.get("/pasarElRato", function (req, res) {
   } else {
     res.render("pasarElRato", { datos: req.session, fotoPerfil: req.session.foto });
   }
+});
+
+app.get("/imagenes", function (req, res) {
+  res.sendFile(path.join(__dirname, "/server/temp/img-20210719-003612586.png"));
 });
 
 /* aqui el listen */
