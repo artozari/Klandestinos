@@ -1,4 +1,8 @@
 const mongodb = require(`mongodb`);
+// const mongoose = require("mongoose");
+
+const url_db = "mongodb+srv://artozari:artozari@cluster0.wbcse.mongodb.net/test";
+const local_url_db = "mongodb://localhost:27017";
 
 function fechaYHora() {
   const date = new Date();
@@ -11,37 +15,40 @@ function fechaYHora() {
   const mils = date.getMilliseconds().toString();
   return `${anio}${mes}${dia}-${hora}${mins}${segs}${mils}`;
 }
-
 function obtenerUsuarios(err, cbDatos) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
     }
     const klandb = cliente.db("klandestinos");
-    const usuariosdb = klandb.collection("usuario");
+    const usuariosdb = cliente.db("klandestinos").collection("usuario");
     usuariosdb.find(function (err, datos) {
       cbDatos(datos);
     });
   });
 }
 
-function obtenerUsuario(nick, pass, err, cbDatos) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+function obtenerUsuario(nick, pass, error, cbDatos) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
     }
+    console.log("papapapapapapap");
     const klandb = cliente.db("klandestinos");
-    const usuariosdb = klandb.collection("usuario");
+    const usuariosdb = cliente.db("klandestinos").collection("usuario");
     usuariosdb.findOne({ nick: nick, password: pass }, function (err, datos) {
+      if (err) {
+        console.log(err);
+      }
       cbDatos(datos);
     });
   });
 }
 
 function obtenerPerfil(nombre, err, cbDatos) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(local_url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -55,7 +62,7 @@ function obtenerPerfil(nombre, err, cbDatos) {
 }
 
 function ActualizarPerfilUser(nick, perfil, err, cbOk) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(local_url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -75,7 +82,7 @@ function ActualizarPerfilUser(nick, perfil, err, cbOk) {
 }
 
 function obtenerEvento(id, err, cbDatos) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(local_url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -140,27 +147,62 @@ function obtenerEventosPorUsuario(usuarioCreador, err, cbDatos) {
   });
 }
 
-function registrarUsuario(newUsuario, err, cbOk) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+// const { MongoClient } = require("mongodb");
+// const uri = "mongodb+srv://artozari:12344321@cluster0.k1nwn.mongodb.net/Klandestino?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// client.connect((err) => {
+//   const collection = client.db("Klandestino").collection("usuario");
+//   // perform actions on the collection object
+//   collection.insertOne(newUsuario, (err, datos) => {
+//     if (err) {
+//       console.log("se produjo un errorsango");
+//       return;
+//     }
+//   });
+//   client.close();
+// });
+
+function registrarUsuario(newUsuario, cbError, cbOk) {
+  const mongoCli = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
     }
     const klandb = cliente.db("klandestinos");
-    const colecciondb = klandb.collection("usuario");
+    const colecciondb = cliente.db("klandestinos").collection("usuario");
+    console.log("---------------------------");
     colecciondb.insertOne(newUsuario, (err, datos) => {
       if (err) {
+        console.log("Hubo un error al consultar:", err);
         cbError(err);
         return;
       }
-      cliente.close();
-      cbOk();
+      client.close();
+      datos();
     });
   });
 }
 
+// const { MongoClient } = require("mongodb");
+// const uri = "mongodb+srv://artozari:12344321@cluster0.k1nwn.mongodb.net/klandestinos?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+// client.connect((err) => {
+//   const collection = client.db("klandestinos").collection("usuario");
+//   collection.insertOne(newUsuario, (err, datos) => {
+//       if (err) {
+//         console.log(err);
+//         cbError(err);
+//         return;
+//       }
+//       cliente.close();
+//       cbOk();
+//     });
+//   client.close();
+// });
+
 function registrarEvento(newEvento, err, cbOk) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(local_url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;

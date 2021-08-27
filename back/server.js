@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const path = require("path");
+app.set("port", process.env.PORT || port);
 const expHbs = require("express-handlebars");
 const bd = require(`./bd`);
 const expSession = require("express-session");
