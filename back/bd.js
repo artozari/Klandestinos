@@ -1,7 +1,7 @@
 const mongodb = require(`mongodb`);
 // const mongoose = require("mongoose");
 
-const url_db = "mongodb+srv://artozari:artozari@cluster0.wbcse.mongodb.net/test";
+const url_db = "mongodb+srv://artozari:12344321@cluster0.wbcse.mongodb.net/klandestinos?retryWrites=true&w=majority";
 const local_url_db = "mongodb://localhost:27017";
 
 function fechaYHora() {
@@ -35,7 +35,6 @@ function obtenerUsuario(nick, pass, error, cbDatos) {
       console.log("hubo un error al conectar");
       return;
     }
-    console.log("papapapapapapap");
     const klandb = cliente.db("klandestinos");
     const usuariosdb = cliente.db("klandestinos").collection("usuario");
     usuariosdb.findOne({ nick: nick, password: pass }, function (err, datos) {
@@ -48,7 +47,7 @@ function obtenerUsuario(nick, pass, error, cbDatos) {
 }
 
 function obtenerPerfil(nombre, err, cbDatos) {
-  const mongoClient = mongodb.MongoClient.connect(local_url_db, function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -62,7 +61,7 @@ function obtenerPerfil(nombre, err, cbDatos) {
 }
 
 function ActualizarPerfilUser(nick, perfil, err, cbOk) {
-  const mongoClient = mongodb.MongoClient.connect(local_url_db, function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -82,7 +81,7 @@ function ActualizarPerfilUser(nick, perfil, err, cbOk) {
 }
 
 function obtenerEvento(id, err, cbDatos) {
-  const mongoClient = mongodb.MongoClient.connect(local_url_db, function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -96,7 +95,7 @@ function obtenerEvento(id, err, cbDatos) {
 }
 
 function obtenerEventosSiguientes(err, cbDatos) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -117,7 +116,7 @@ function obtenerEventosSiguientes(err, cbDatos) {
 }
 
 function obtenerEventosPorUbicacion(ubicacion, err, cbDatos) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -131,7 +130,7 @@ function obtenerEventosPorUbicacion(ubicacion, err, cbDatos) {
 }
 
 function obtenerEventosPorUsuario(usuarioCreador, err, cbDatos) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -178,8 +177,8 @@ function registrarUsuario(newUsuario, cbError, cbOk) {
         cbError(err);
         return;
       }
-      client.close();
-      datos();
+      cliente.close();
+      cbOk(datos);
     });
   });
 }
@@ -201,8 +200,8 @@ function registrarUsuario(newUsuario, cbError, cbOk) {
 //   client.close();
 // });
 
-function registrarEvento(newEvento, err, cbOk) {
-  const mongoClient = mongodb.MongoClient.connect(local_url_db, function (err, cliente) {
+function registrarEvento(newEvento, cbError, cbOk) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -221,7 +220,7 @@ function registrarEvento(newEvento, err, cbOk) {
 }
 
 function asistirAlEvento(idEvento, nick, err, cbOk) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("Hubo un error al conectar");
       return;
@@ -240,7 +239,7 @@ function asistirAlEvento(idEvento, nick, err, cbOk) {
 }
 
 function userAsistenteDeEvento(nick, idEvento, err, cbDatos) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -255,7 +254,7 @@ function userAsistenteDeEvento(nick, idEvento, err, cbDatos) {
 }
 
 function comentarEnEvento(idEvento, comentario, err, cbOk) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -274,7 +273,7 @@ function comentarEnEvento(idEvento, comentario, err, cbOk) {
 }
 
 function obtenerComentariosDeEvento(idEvento, err, cbDatos) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;
@@ -290,7 +289,7 @@ function obtenerComentariosDeEvento(idEvento, err, cbDatos) {
 }
 
 function quitarAsistente(idEvento, nick, err, cbOk) {
-  const mongoClient = mongodb.MongoClient.connect("mongodb://localhost:27017", function (err, cliente) {
+  const mongoClient = mongodb.MongoClient.connect(url_db, function (err, cliente) {
     if (err) {
       console.log("hubo un error al conectar");
       return;

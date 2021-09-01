@@ -22,8 +22,8 @@
     "express-session": "^1.17.2",
     "express-sessions": "^1.0.6",
     "mongodb": "^4.1.1",
-    "multer": "^1.4.2",
-    "mongoose": "6.0.0"
+    "mongoose": "6.0.0",
+    "multer": "^1.4.2"
   },
   "autor": "Angel MC."
 }
